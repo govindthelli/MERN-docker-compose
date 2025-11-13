@@ -10,7 +10,7 @@ services:
     networks:
       app-network:
   backend:
-    build: ./backend
+    build: ./mern/backend
     ports:
       - "5000:5000"
     environment:
@@ -18,7 +18,7 @@ services:
     networks:
       app-network:
   frontend:
-    build: ./frontend
+    build: ./mern/frontend
     ports:
       - "3000:80"
     networks:
