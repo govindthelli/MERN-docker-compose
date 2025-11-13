@@ -20,9 +20,9 @@ const Record = (props) => (
         >
           Edit
         </Link>
+
         <button
           className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 hover:text-accent-foreground h-9 rounded-md px-3"
-          color="red"
           type="button"
           onClick={() => {
             props.deleteRecord(props.record._id);
@@ -38,32 +38,36 @@ const Record = (props) => (
 export default function RecordList() {
   const [records, setRecords] = useState([]);
 
-  // This method fetches the records from the database.
+  // Fetch all records
   useEffect(() => {
     async function getRecords() {
-      const response = await fetch(`http://localhost:5050/record/`);
+      const response = await fetch(`http://44.211.158.84:5000/record/`);
+
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
         console.error(message);
         return;
       }
+
       const records = await response.json();
       setRecords(records);
     }
+
     getRecords();
     return;
   }, [records.length]);
 
-  // This method will delete a record
+  // Delete a record
   async function deleteRecord(id) {
-    await fetch(`http://localhost:5050/record/${id}`, {
+    await fetch(`http://44.211.158.84:5000/record/${id}`, {
       method: "DELETE",
     });
+
     const newRecords = records.filter((el) => el._id !== id);
     setRecords(newRecords);
   }
 
-  // This method will map out the records on the table
+  // List of records in table
   function recordList() {
     return records.map((record) => {
       return (
@@ -76,7 +80,6 @@ export default function RecordList() {
     });
   }
 
-  // This following section will display the table with the records of individuals.
   return (
     <>
       <h3 className="text-lg font-semibold p-4">Employee Records</h3>
