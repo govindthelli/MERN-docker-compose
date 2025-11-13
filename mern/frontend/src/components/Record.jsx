@@ -14,44 +14,49 @@ export default function Record() {
   useEffect(() => {
     async function fetchData() {
       const id = params.id?.toString() || undefined;
-      if(!id) return;
+      if (!id) return;
+
       setIsNew(false);
+
       const response = await fetch(
-        `http://localhost:5050/record/${params.id.toString()}`
+        `http://44.211.158.84:5000/record/${params.id.toString()}`
       );
+
       if (!response.ok) {
         const message = `An error has occurred: ${response.statusText}`;
         console.error(message);
         return;
       }
+
       const record = await response.json();
       if (!record) {
         console.warn(`Record with id ${id} not found`);
         navigate("/");
         return;
       }
+
       setForm(record);
     }
     fetchData();
     return;
   }, [params.id, navigate]);
 
-  // These methods will update the state properties.
   function updateForm(value) {
     return setForm((prev) => {
       return { ...prev, ...value };
     });
   }
 
-  // This function will handle the submission.
   async function onSubmit(e) {
     e.preventDefault();
     const person = { ...form };
+
     try {
       let response;
+
       if (isNew) {
-        // if we are adding a new record we will POST to /record.
-        response = await fetch("http://localhost:5050/record", {
+        // Add new record (POST)
+        response = await fetch("http://44.211.158.84:5000/record", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -59,28 +64,30 @@ export default function Record() {
           body: JSON.stringify(person),
         });
       } else {
-        // if we are updating a record we will PATCH to /record/:id.
-        response = await fetch(`http://localhost:5050/record/${params.id}`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(person),
-        });
+        // Update existing record (PATCH)
+        response = await fetch(
+          `http://44.211.158.84:5000/record/${params.id}`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(person),
+          }
+        );
       }
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
     } catch (error) {
-      console.error('A problem occurred adding or updating a record: ', error);
+      console.error("A problem occurred adding or updating a record: ", error);
     } finally {
       setForm({ name: "", position: "", level: "" });
       navigate("/");
     }
   }
 
-  // This following section will display the form that takes the input from the user.
   return (
     <>
       <h3 className="text-lg font-semibold p-4">Create/Update Employee Record</h3>
@@ -121,6 +128,7 @@ export default function Record() {
                 </div>
               </div>
             </div>
+
             <div className="sm:col-span-4">
               <label
                 htmlFor="position"
@@ -142,6 +150,7 @@ export default function Record() {
                 </div>
               </div>
             </div>
+
             <div>
               <fieldset className="mt-4">
                 <legend className="sr-only">Position Options</legend>
@@ -162,6 +171,7 @@ export default function Record() {
                     >
                       Intern
                     </label>
+
                     <input
                       id="positionJunior"
                       name="positionOptions"
@@ -177,6 +187,7 @@ export default function Record() {
                     >
                       Junior
                     </label>
+
                     <input
                       id="positionSenior"
                       name="positionOptions"
@@ -198,6 +209,7 @@ export default function Record() {
             </div>
           </div>
         </div>
+
         <input
           type="submit"
           value="Save Employee Record"
