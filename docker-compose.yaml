@@ -6,6 +6,7 @@ services:
       - "27017:27017"
     volumes:
       - app-volume:/data/db
+    restart: always
     networks:
       app-network:
   backend:
