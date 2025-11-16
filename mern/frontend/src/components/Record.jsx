@@ -19,7 +19,7 @@ export default function Record() {
       setIsNew(false);
 
       const response = await fetch(
-        `http://98.92.177.168:5000/record/${params.id.toString()}`
+        `http://98.92.61.219:5000/record/${params.id.toString()}`
       );
 
       if (!response.ok) {
@@ -56,7 +56,7 @@ export default function Record() {
 
       if (isNew) {
         // Add new record (POST)
-        response = await fetch("http://98.92.177.168:5000/record", {
+        response = await fetch("http://98.92.61.219:5000/record", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -66,7 +66,7 @@ export default function Record() {
       } else {
         // Update existing record (PATCH)
         response = await fetch(
-          `http://98.92.177.168:5000/record/${params.id}`,
+          `http://998.92.61.219:5000/record/${params.id}`,
           {
             method: "PATCH",
             headers: {
