@@ -66,7 +66,7 @@ export default function Record() {
       } else {
         // Update existing record (PATCH)
         response = await fetch(
-          `http://998.92.61.219:5000/record/${params.id}`,
+          `http://98.92.61.219:5000/record/${params.id}`,
           {
             method: "PATCH",
             headers: {
