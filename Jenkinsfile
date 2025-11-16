@@ -4,7 +4,6 @@ pipeline {
     stage('build') {
       steps {
         sh '''
-            
             docker compose down --remove--orphans || true
           '''
       }
@@ -12,7 +11,7 @@ pipeline {
     stage('deploy') {
       steps {
         sh '''
-            docker compose up --build 
+            DOCKER_BUILDKIT=1 docker compose build --progess=plain
           '''
       }
     }
