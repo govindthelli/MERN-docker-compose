@@ -4,9 +4,8 @@ pipeline {
     stage('build') {
       steps {
         sh '''
-            docker rmi -f $(docker images -aq) || true
-            docker rm -f $(docker ps -aq) || true
-            docker compose down || true
+            
+            docker compose down --remove--orphans || true
           '''
       }
     }
