@@ -1,0 +1,43 @@
+======in MASTER NODE ===
+> first install java and jenkins in master node 
+then 
+  []$ sudo su
+  []# sudo su - jenkins
+  []# ssh-keygen -t rsa -b 4096     ## its for generate keys 
+  []# cd .ssh
+  [.ssh]# ls    ## here you can see private and public keys
+> now copy the [public key ]
+  [.ssh] cat id_rsa.pub (public key)
+  ==========in AGENT NODE==============
+  > install java
+  []$ sudo su
+  []# cd .shh
+> here you can see authorized_keys ...open that add paste the public key(which you copied on master node ) 
+ []# vi authorized_keys 
+ ------paste that public key here at the end of the file by taking new line-------
+> next
+     []# cd ..
+     []# mkdir jenkins && chmod 777 jenkins
+     []# cd jenkins && pwd
+     out put :  /home/ubuntu/jenkins   
+    
+ =========in MASTER NODE=======
+ > NOW COPY private key
+ [.ssh]# cat id_rsa
+ -----copy this entirely----------
+
++++++++++++++++++++++++in UI of JENKINS==================
+> create credentials
+     = kind (ssh username and private key)
+     = id(agent-key)
+     = username (ubuntu)
+     ==under private key click on ""enter directly""
+     > now paste the private key(which you have copied in the master node)
+   == now click on create
+> now create node
+  = name (agent)
+  = remote root directory (/home/ubuntu/jenkins/)
+  = launch method (via ssh)
+       - host (public ip of agent(if agent and master node on same vpc) otherwise private)
+       - select creds 
+  = click on save ........now your agent would be created
