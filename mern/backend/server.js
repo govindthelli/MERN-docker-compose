@@ -7,7 +7,7 @@ const app = express();
 
 app.use(cors({
   origin: [
-    "http://98.92.61.219:3000",   // frontend running on 3000
+    "http://44.204.135.197:3000",   // frontend running on 3000
     "http://localhost:3000"      // for local development
   ],
   credentials: true
