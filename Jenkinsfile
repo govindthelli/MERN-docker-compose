@@ -6,7 +6,7 @@ pipeline {
       steps {
         sshagent(['agent-key']) {
           sh '''
-            ssh ubuntu@44.204.135.197 "mkdir -p /home/ubuntu/$JOB_NAME"
+            
             scp -r $WORKSPACE/* ubuntu@44.204.135.197:/home/ubuntu/$JOB_NAME/
           '''
         }
