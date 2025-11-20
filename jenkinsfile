@@ -2,31 +2,20 @@ pipeline {
   agent any
 
   stages {
-
     stage('build') {
       steps {
-        
           sh '''
-            
-              
               docker ps -aq | xargs -r docker rm || true
               docker compose down --remove-orphans || true
-            
           '''
-        
       }
     }
 
     stage('deploy') {
       steps {
-        
           sh '''
-           
-              
               DOCKER_BUILDKIT=1 docker compose up --build -d
-            
           '''
-        
       }
     }
   }
