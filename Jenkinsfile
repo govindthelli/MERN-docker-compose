@@ -1,10 +1,10 @@
 pipeline {
-  agent { label 'agent-app' }
+  agent { label 'agent-label' }
 
   stages {
     stage('copying') {
       steps {
-        sshagent(['agent-key']) {
+        sshagent(['ssh-agent']) {
           sh '''
             
             scp -r $WORKSPACE/* ubuntu@44.193.202.227:/home/ubuntu/$JOB_NAME/
@@ -15,7 +15,7 @@ pipeline {
 
     stage('build') {
       steps {
-        sshagent(['agent-key']) {
+        sshagent(['ssh-agent']) {
           sh '''
             ssh ubuntu@44.193.202.227 "
               cd /home/ubuntu/$JOB_NAME;
@@ -29,7 +29,7 @@ pipeline {
 
     stage('deploy') {
       steps {
-        sshagent(['agent-key']) {
+        sshagent(['ssh-agent']) {
           sh '''
             ssh ubuntu@44.193.202.227 "
               cd /home/ubuntu/$JOB_NAME;
