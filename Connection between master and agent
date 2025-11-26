@@ -41,3 +41,7 @@ then
        - host (public ip of agent(if agent and master node on same vpc) otherwise private)
        - select creds 
   = click on save ........now your agent would be created
+
+#for the first time we can not ssh into agent because jenkins dont know the host.So,we need to ssh into agent in terminal first.For that use the following command
+  =ssh -o StrictHostKeyChecking=no ubuntu<Agent-ip>
+  the command should be run in master terminal then known_hosts folder is created in .ssh folder then only agent is connected.
